@@ -1,69 +1,30 @@
 import './App.css';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-
-import Navbar from "./components/NavBar/navbar";
-import Home from "./components/home";
-import {Col, Container, Image, Row} from "react-bootstrap";
-
-const movieTitleStyle = {color: 'white', fontSize: 17};
-const footer = {color: 'white', textAlign: 'center', fontSize: 17}
+import Header from "./components/navbar/header";
+import Body from "./components/body";
+import Footer from "./components/footer";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import LoginComponent from "./components/loginComponent"
+import RegisterComponent from "./components/registerComponent"
+import Details from "./components/movieDetailsComponent"
+import NotFound from "./components/notFoundComponent"
+import MovieAdd from "./components/movieAddComponent"
 
 function App() {
     return (
-
         <div className="App">
-            <Router>
-                <Navbar/>
+            <Header/>
+            <BrowserRouter>
                 <Routes>
-                    <Route path='/' exact component={Home}/>
+                    <Route exact path='/' element={<Body/>}/>
+                    <Route path='/signin' element={<LoginComponent/>}/>
+                    <Route path='/details' element = {<Details/>}/>
+                    <Route path='/signup' element={<RegisterComponent/>}/>
+                    <Route path='/add' element={<MovieAdd/>}/>
+                    {<Route path="*" element={<NotFound/>} />}
                 </Routes>
-            </Router>
-            <header>
-                <h1>Movie Database</h1>
-            </header>
-            <Container>
-                <Row>
-                    <Col xs={3} md={55}>
-                        <p style={movieTitleStyle}>Movie Title</p>
-                        <img src={require("./images/Spider-Man-No-Way-Home-Poster-2.webp").default} width="100"
-                             height="auto"/>
-                    </Col>
-                    <Col xs={3} md={55}>
-                        <p style={movieTitleStyle}>Movie Title</p>
-                        <img src={require("./images/Spider-Man-No-Way-Home-Poster-2.webp").default} width="100"
-                             height="auto"/>
-                    </Col>
-                    <Col xs={3} md={55}>
-                        <p style={movieTitleStyle}>Movie Title</p>
-                        <img src={require("./images/Spider-Man-No-Way-Home-Poster-2.webp").default} width="100"
-                             height="auto"/>
-                    </Col>
-                </Row>
-            </Container>
-            <p/>
-            <Container>
-                <Row>
-                    <Col xs={3} md={55}>
-                        <p style={movieTitleStyle}>Movie Title</p>
-                        <img src={require("./images/Spider-Man-No-Way-Home-Poster-2.webp").default} width="100"
-                             height="auto" alt=""/>
-                    </Col>
-                    <Col xs={3} md={55}>
-                        <p style={movieTitleStyle}>Movie Title</p>
-                        <img src={require("./images/Spider-Man-No-Way-Home-Poster-2.webp").default} width="100"
-                             height="auto"/>
-                    </Col>
-                    <Col xs={3} md={55}>
-                        <p style={movieTitleStyle}>Movie Title</p>
-                        <img src={require("./images/Spider-Man-No-Way-Home-Poster-2.webp").default} width="100"
-                             height="auto"/>
-                    </Col>
-                </Row>
-            </Container>
-            <p style={footer}>Stopka</p>
+            </BrowserRouter>
+            <Footer/>
         </div>
-
-
     );
 }
 
