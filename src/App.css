@@ -1,6 +1,8 @@
 .App {
     background-color: rgb(113, 35, 144);
     height: fit-content;
+    overflow-y: hidden; /* Hide vertical scrollbar */
+    overflow-x: hidden;
 
 }
 
@@ -129,7 +131,7 @@
 
 .moviePosterDetails {
     height: 40vh;
-    width: auto;
+    width: 20vh;
     overflow: hidden;
 }
 
@@ -228,7 +230,7 @@
 }
 
 .body {
-    width: 202vh;
+    width: 100%;
     border-color: rgb(64, 20, 82);
     border-style: solid;
 }
@@ -239,3 +241,4 @@
     text-align: center;
     padding: 1vh;
 }
+::-webkit-scrollbar {display:none;}
