@@ -1,22 +1,25 @@
 import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import axios from "axios";
 
 class registerComponent extends Component {
 
     state = {
         account: {
-            email: "", login: "", username: "", password: ""
+            email: "", username: "", password: ""
         },
         errors: {}
+    };
+
+    handleChangeRoute = () => {
+        this.props.history.push('/');
+        window.location.reload();
     };
 
     validate = () => {
         const errors = {};
 
         const {account} = this.state;
-        if (account.login.trim() === '') {
-            errors.login = 'Login jest wymagany!';
-        }
         if (account.username.trim() === '') {
             errors.username = 'Nazwa jest wymagana!';
         }
@@ -37,7 +40,24 @@ class registerComponent extends Component {
         this.setState({errors: errors || {}});
         if (errors) return;
 
-        console.log("submit - np. zapytanie do serwera");
+        console.log(this.state)
+
+        axios({
+            method: 'post',
+            url: 'https://pr-movies.herokuapp.com/api/user/create',
+            data: {
+                name: this.state.account.username,
+                email: this.state.account.email,
+                password: this.state.account.password
+            }
+        }).then((response) => {
+            this.handleChangeRoute();
+        }).catch((error) => {
+            const errors = {};
+            errors.password = 'Username or password does not exist';
+            this.setState({errors: errors || {}});
+            console.log(error);
+        });
     };
 
     handleChange = (event) => {
@@ -61,7 +81,7 @@ class registerComponent extends Component {
                            aria-describedby="emailHelp"
                            placeholder="Tomek123@email.com"/>
                     {this.state.errors.email &&
-                    <div className="alert alert-danger">{this.state.errors.email}</div>}
+                        <div className="alert alert-danger">{this.state.errors.email}</div>}
                 </div>
                 <div className="form-group">
                     <label htmlFor="username">Login Użytkownika</label>
@@ -74,7 +94,7 @@ class registerComponent extends Component {
                            aria-describedby="emailHelp"
                            placeholder="tomek123"/>
                     {this.state.errors.login &&
-                    <div className="alert alert-danger">{this.state.errors.login}</div>}
+                        <div className="alert alert-danger">{this.state.errors.login}</div>}
                 </div>
                 <div className="form-group">
                     <label htmlFor="username">Nazwa Użytkownika</label>
@@ -87,11 +107,11 @@ class registerComponent extends Component {
                            aria-describedby="emailHelp"
                            placeholder="Tomek123"/>
                     {this.state.errors.username &&
-                    <div className="alert alert-danger">{this.state.errors.username}</div>}
+                        <div className="alert alert-danger">{this.state.errors.username}</div>}
                 </div>
 
 
-                <br></br>
+                <br/>
                 <div className="form-group">
                     <label htmlFor="password">Hasło</label>
                     <input value={this.state.account.password}
@@ -102,10 +122,10 @@ class registerComponent extends Component {
                            id="password"
                            placeholder="*****"/>
                     {this.state.errors.password &&
-                    <div className="alert alert-danger">{this.state.errors.password}</div>}
+                        <div className="alert alert-danger">{this.state.errors.password}</div>}
 
                 </div>
-                <br></br>
+                <br/>
                 <button type="submit" className="btn btn-primary">Zarejestruj</button>
             </form>
         </div>

@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {BrowserRouter, Link} from "react-router-dom";
-    class Login extends Component{
+
+class Login extends Component {
     state = {};
 
     render() {
         return <BrowserRouter>
-            <Link to
+            <Link to="#"
                   onClick={() => {
                       window.location.href = "/signin";
                   }}>
@@ -14,4 +15,5 @@ import {BrowserRouter, Link} from "react-router-dom";
         </BrowserRouter>
     }
 }
+
 export default Login;

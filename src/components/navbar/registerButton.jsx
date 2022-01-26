@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {BrowserRouter, Link} from "react-router-dom";
-    class Register extends Component{
+
+class Register extends Component {
     state = {};
 
     render() {
         return <BrowserRouter>
-            <Link to
+            <Link to="#"
                   onClick={() => {
                       window.location.href = "/signup";
                   }}>
@@ -14,4 +15,5 @@ import {BrowserRouter, Link} from "react-router-dom";
         </BrowserRouter>
     }
 }
+
 export default Register;

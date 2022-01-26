@@ -1,16 +1,30 @@
-import React, {Component} from "react";
-import 'bootstrap/dist/css/bootstrap.min.css'
-import MoviePoster from "./moviePoster";
-import MovieContainer from "./movieContainer";
+import React, {useState} from "react";
+import {useParams} from "react-router-dom";
 
-class movieDetailsComponent extends Component {
+const Details = () => {
+    let {id} = useParams();
+    const [title, setTitle] = useState("");
+    const [image, setImage] = useState("");
+    const [content, setContent] = useState("");
 
-    render() {
-        return <div className="movieDetails">
-            <MoviePoster/>
-            <MovieContainer/>
+    fetch("https://pr-movies.herokuapp.com/api/movies/" + id)
+        .then((res) => res.json())
+        .then((json) => {
+            console.log(id)
+            setTitle(json.title);
+            setImage(json.image);
+            setContent(json.content);
+        });
+    return (<div className="movieCardDetails">
+            <img className="moviePosterDetails" src={image} alt="image"/>
+            <div className="movieContainerDetails">
+                <div className="movieTitleDetails">{title}</div>
+                <br/>
+                <div className="movieDescriptionDetails"> {content}</div>
             </div>
-    }
-}
+        </div>
 
-export default movieDetailsComponent;
+    );
+}
+export default Details;
+
