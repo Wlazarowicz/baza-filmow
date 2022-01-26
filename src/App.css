@@ -124,14 +124,13 @@
 }
 
 .moviePoster {
-    height: 30vh;
-    width: auto;
-    overflow: hidden;
+    height: available;
+    width: max-content;
 }
 
 .moviePosterDetails {
     height: 40vh;
-    width: 20vh;
+    width: auto;
     overflow: hidden;
 }
 
@@ -158,18 +157,27 @@
 
 .movieTitle {
     text-align: center;
+    vertical-align: center;
+    height: 6vh;
     font-size: 2vh;
     color: white;
     font-weight: 700;
+    display: ruby-text;
+    overflow:hidden;
+    text-overflow: ellipsis;
+
+
 }
 
 .movieDescription {
     text-align: -moz-left;
     color: white;
-    height: 19vh;
+    height: 20vh;
     width: 20vh;
-    overflow: -webkit-marquee;
+    text-overflow: ellipsis;
+    overflow: hidden;
     font-size: 1.7vh;
+    display: inline-block;
 
 }
 
