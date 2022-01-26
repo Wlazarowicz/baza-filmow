@@ -9,7 +9,7 @@ class Body extends Component {
         super(props);
         this.isNotLogged = isExpired(localStorage.getItem('token'));
         this.state = {
-            movieList: [],
+            moviesFromAPI: [],
             isLoaded: false,
         }
     }
@@ -19,26 +19,39 @@ class Body extends Component {
             .then((res) => res.json())
             .then((json) => {
                 this.setState({
-                    movieList: json,
+                    moviesFromAPI: json,
                     isLoaded: true,
                 });
             });
     }
 
     render() {
-        const {isLoaded, movieList} = this.state;
+        const {isLoaded, moviesFromAPI} = this.state;
+        for (let i = 0; i < moviesFromAPI.length; i++) {
+            if (moviesFromAPI[i].title === undefined || moviesFromAPI[i].title.length < 2) {
+                moviesFromAPI.splice(i, 1)
+                i--;
+            }
+            if (moviesFromAPI[i].content === undefined || moviesFromAPI[i].content.length < 2) {
+                moviesFromAPI.splice(i, 1)
+                i--;
+            }
+            if (moviesFromAPI[i].image === undefined || moviesFromAPI[i].image.length < 2 || !moviesFromAPI[i].image.includes("https://")) {
+                moviesFromAPI.splice(i, 1)
+                i--;
+            }
+        }
+        
         return (<div className="body">
                 {isLoaded && <Row>
-                    <React.Fragment>
                         <div className="bodyContainer">
-                            {movieList.map((movie) => (
+                            {moviesFromAPI.map((movie) => (
                                 <Col xs={6} md={12}>
                                     <MovieCard title={movie.title} content={movie.content} image={movie.image}
                                                id={movie.id}/>
                                 </Col>
                             ))}
                         </div>
-                    </React.Fragment>
                 </Row>}
             </div>
         )
